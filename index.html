@@ -56,11 +56,16 @@
     const text = e.innerText;
     e.innerText = 'loading..';
     e.disabled = true;
-    Controller.connect().then(e => {
+    Controller.connect().then(() => {
       e.innerText = text;
       e.disabled = false;
       connectArea.style.display = 'none';
       controlsArea.style.display = 'grid';
+
+      Controller.device.addEventListener('gattserverdisconnected', () => {
+        controlsArea.style.display = 'none';
+        connectArea.style.display = 'block';
+      });
     });
   }
 

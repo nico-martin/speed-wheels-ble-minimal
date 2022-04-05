@@ -25,8 +25,6 @@ class SpeedwheelsController {
     const service = await server.getPrimaryService('c10e3e56-fdd3-11eb-9a03-0242ac130003');
     this.motor = await service.getCharacteristic('35a1022c-fdd3-11eb-9a03-0242ac130003');
 
-    //this.device.addEventListener('gattserverdisconnected', () => this.onDisconnect(this.device));
-
     return this.motor;
   }
 
