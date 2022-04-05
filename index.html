@@ -1,0 +1,93 @@
+<html lang="en-EN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>SpeedWheels BLE Car Controls</title>
+    <link rel="stylesheet" href="./styles.css" type="text/css" media="all">
+    <script type="text/javascript"
+            src="./SpeedwheelsController.js">
+    </script>
+    <script type="text/javascript">
+    </script>
+</head>
+<body>
+<div id="connectArea" class="connect-area">
+    <button class="connect-area__button" onclick="connect(this)">Connect</button>
+</div>
+<div id="controlsArea" class="controls-area">
+    <button
+            class="controls-area__button controls-area__button--up"
+            onmousedown="Controller.setSpeed(50,50)"
+            onmouseup="Controller.setSpeed(0,0)"
+    >
+        Forward
+    </button>
+    <button
+            class="controls-area__button controls-area__button--left"
+            onmousedown="Controller.setSpeed(20,50)"
+            onmouseup="Controller.setSpeed(0,0)"
+    >
+        Left
+    </button>
+    <button
+            class="controls-area__button controls-area__button--right"
+            onmousedown="Controller.setSpeed(50,20)"
+            onmouseup="Controller.setSpeed(0,0)"
+    >
+        Right
+    </button>
+    <button
+            class="controls-area__button controls-area__button--down"
+            onmousedown="Controller.setSpeed(-50,-50)"
+            onmouseup="Controller.setSpeed(0,0)"
+    >
+        Backward
+    </button>
+</div>
+<script type="text/javascript">
+  const Controller = new SpeedwheelsController();
+
+  const connectArea = document.getElementById('connectArea');
+  const controlsArea = document.getElementById('controlsArea');
+  controlsArea.style.display = 'none';
+
+  const connect = (e) => {
+    const text = e.innerText;
+    e.innerText = 'loading..';
+    e.disabled = true;
+    Controller.connect().then(e => {
+      e.innerText = text;
+      e.disabled = false;
+      connectArea.style.display = 'none';
+      controlsArea.style.display = 'grid';
+    });
+  }
+
+  window.onkeydown = function (e) {
+    if (Controller.motor && !e.repeat) {
+      switch (e.key) {
+        case 'ArrowUp':
+          Controller.setSpeed(50, 50);
+          break;
+        case 'ArrowDown':
+          Controller.setSpeed(-50, -50);
+          break;
+        case 'ArrowLeft':
+          Controller.setSpeed(20, 50);
+          break;
+        case 'ArrowRight':
+          Controller.setSpeed(50, 20);
+          break;
+        default:
+          Controller.setSpeed(0, 0);
+      }
+    }
+  }
+
+  window.onkeyup = function () {
+    Controller.motor && Controller.setSpeed(0, 0);
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+html {
+    font-size: 150%;
+}
+
+button {
+    font-size: 1rem;
+    padding: 0.2rem 0.5rem;
+    cursor: pointer;
+}
+
+body {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+
+.controls-area {
+    display: grid;
+    grid-gap: 1em;
+    grid-template-areas:
+    '.    up    .'
+    'left .     right'
+    '.    down  .';
+}
+
+.controls-area__button--up {
+    grid-area: up;
+}
+
+.controls-area__button--left {
+    grid-area: left;
+}
+
+.controls-area__button--right {
+    grid-area: right;
+}
+
+.controls-area__button--down {
+    grid-area: down;
+}
